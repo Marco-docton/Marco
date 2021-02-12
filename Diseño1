@@ -1,0 +1,166 @@
+import 'package:flutter/material.dart';
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  static const String _title = 'Tenis';
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: _title,
+      home: Scaffold(
+        appBar: AppBar(title: const Text(_title)),
+        body: SliderPage(
+          
+        ),
+      ),
+    );
+  }
+}
+
+class SliderPage extends StatefulWidget {  
+  @override
+  _SliderPageState createState() => _SliderPageState();
+}
+
+class _SliderPageState extends State<SliderPage> {
+  double _valorSlider = 0;
+  bool _bloquearCheck = false;
+  final List<String> _tenis = ['codigo:1Y6TG', 'codigo:9OOTG', 'codigo:WWWTG', 'codigo:011TG', 'codigo:VW3TG', 'codigo:5T6TG'];
+  final List<String> _imagenes =[
+    'https://lh3.googleusercontent.com/proxy/VmQPzMfoEapQVUix35stYvnevsFZm2m1VA8tUkLhEbG-PdUl28UGj_6dw5exCDkwdvKzuhuIwih3gFkU2TVERqapkQDGnZvjOjVE8uR5lGFfJIw3e_NvF7ZmSM9MEb1zJapC_lEFKoBUe078',
+    'https://http2.mlstatic.com/zapatillas-nike-air-max-720-blanco-negro-exclusivo-D_NQ_NP_683299-MPE28747928679_112018-F.jpg',
+  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRftmM_-mrYbxWrJDYPfuJ-5RSX9i3O7d9NQA&usqp=CAU',  'https://cdn.cnn.com/cnnnext/dam/assets/190712095614-nike-moon-shoe-super-169.jpg', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSClWBzgBV-EEbWEvqEfMwDYzA8Gnx_shYEzw&usqp=CAU',
+    'https://static1.abc.es/media/summum/2020/07/28/nike-dior-portada-kiDF--620x349@abc.jpg',];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        padding: EdgeInsets.only(top: 10.0),
+        child: Column(
+          children: <Widget>[
+            _crearSlider(),
+            _crearSwitch(),
+            Expanded(
+              child: _crearImagen(),
+            ),
+            Text(_tenis[_valorSlider.round()]),
+            Divider(),
+              Divider(),
+             Divider(),
+            Text("HAS TU PEDIDO"),
+            cajaTexto1(),
+            Divider(),
+             cajaTexto4(),
+            Divider(),
+            cajaTexto3(),
+            Divider(),
+            cajaTexto2(),
+            Divider(),
+          ],
+        ),
+      ),
+    );
+  }
+  
+ 
+  Widget _crearSlider() {
+    return Slider(
+      activeColor: Colors.indigoAccent,
+      label: 'Tamaño de la imagen',
+      divisions: 5,
+      value: _valorSlider,
+      min: 0,
+      max: 5,
+      onChanged: ( _bloquearCheck ) ? null : ( valor ){
+        setState(() {
+          _valorSlider = valor;
+        });
+      },
+    );
+  }
+
+
+
+  Widget _crearSwitch() {
+    return SwitchListTile(
+      title: Text('Bloquear slider'),
+      value: _bloquearCheck,
+      onChanged: (valor){ 
+        setState(() {
+          _bloquearCheck = valor;
+        });
+      },
+
+    );
+  }
+  
+  Widget _crearImagen() {
+    return Image(
+      image: NetworkImage(_imagenes[_valorSlider.round()]),
+     width: 290,
+    height: 350,
+
+      fit: BoxFit.contain,
+    
+    
+    );
+  }
+}
+
+class cajaTexto1 extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      decoration: InputDecoration(
+        hintText: 'Codigo',
+        icon: Icon(Icons. fiber_pin , color: Colors.blue)
+      )  
+    );
+  }
+}
+class cajaTexto3 extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      decoration: InputDecoration(
+        hintText: 'Color',
+        icon: Icon(Icons.fiber_smart_record_sharp , color: Colors.blue)
+      )  
+    );
+  }
+}
+
+class cajaTexto4 extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      decoration: InputDecoration(
+        hintText: 'No. Calzado ',
+         icon: Icon(Icons.dialpad_rounded , color: Colors.blue)
+      )  
+     
+    );
+  }
+}
+
+
+
+class cajaTexto2 extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      decoration: InputDecoration(
+        hintText: 'Calle/Numero/Colonia',
+         icon: Icon(Icons.home, color: Colors.blue)
+      )  
+    );
+  }
+}
+
+
+
+
+
+
+
